@@ -9,7 +9,6 @@ namespace Combat.Abilities
 {
     public class Bonk : Ability
     {
-
         private enum Phase { Inactive, Approaching, Bonking, Disengaging }
         private Phase CurrentPhase = Phase.Inactive;
 
@@ -154,14 +153,19 @@ namespace Combat.Abilities
         }
         protected override void ContinueAbilityAfterTargeting()
         {
-            Victim = TargetedCombatants[Random.Range(0, TargetedCombatants.Length - 1)];
+            Victim = TargetedCombatants[Random.Range(0, TargetedCombatants.Length)];
 
             InitialPosition = transform.position;
-            InitialPosition.y = 0;
+            //InitialPosition.y = 0;
+
+            Debug.DrawLine(InitialPosition, AttackingPosition, Color.red, 30f);
+            Debug.Log(InitialPosition);
 
             Vector3 selfToVictimVector = Victim.gameObject.transform.position - InitialPosition;
             AttackingPosition = InitialPosition
                 + selfToVictimVector.normalized * (selfToVictimVector.magnitude - SpaceBetweenBonk);
+            Debug.Log(AttackingPosition);
+
 
             StartApproachingPhase();
         }

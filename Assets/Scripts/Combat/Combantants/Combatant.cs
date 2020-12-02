@@ -16,13 +16,11 @@ public abstract class Combatant : MonoBehaviour
     public int CurrentShieldPoints;
     private readonly float HealthBarPosition = 125f;
     protected CombatSystem CombatSystem;
-    [SerializeField]
-    GameObject HealthBarPrefab;
-    [SerializeField]
-    GameObject HealthBarUIPanel;
-    [SerializeField]
-    GameObject Shield;
 
+    protected static GameObject HealthBarPrefab;
+    protected static GameObject HealthBarUIPanel;
+
+    private static GameObject Shield;
     private GameObject HealthBar;
 
     public bool IsAlive = true;
@@ -31,6 +29,12 @@ public abstract class Combatant : MonoBehaviour
     public void Start()
     {
         CombatSystem = GameObject.FindGameObjectWithTag("CombatSystem").GetComponent<CombatSystem>();
+        if (Shield == null)
+        {
+            Shield = GameObject.Find("Magic Shield");
+            HealthBarPrefab = GameObject.Find("HealthBarPrefab");
+            HealthBarUIPanel = GameObject.Find("HealthBarsUI");
+        }
         Shield.SetActive(false);
         IsInCombat = false;
 

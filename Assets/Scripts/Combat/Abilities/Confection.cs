@@ -46,7 +46,7 @@ public class Confection : Ability
         base.Start();
         Timer = GetComponent<Timer>();
         
-        StartUI();
+        //StartUI();
 
         TargetSchema = new TargetSchema(
             0,
@@ -56,11 +56,11 @@ public class Confection : Ability
 
     private void StartUI()
     {
-        HandleBrewUI();
-        HandleBakeUI();
+        StartBrewUI();
+        StartBakeUI();
     }
 
-    private void HandleBrewUI()
+    private void StartBrewUI()
     {
         CookingPot = BrewCanvas.GetComponentInChildren<ItemSlot>();
         TimerText = BrewCanvas.GetComponentInChildren<Text>();
@@ -69,7 +69,7 @@ public class Confection : Ability
             EnableCanvas(BrewCanvas, false); //this disables both the canvas and canvasgroup
     }
 
-    private void HandleBakeUI()
+    private void StartBakeUI()
     {
         SliderScript = BakeCanvas.GetComponent<SliderHandle>();
         MaxClicks = SliderScript.GetMaxClicks();
@@ -185,7 +185,7 @@ public class Confection : Ability
 
         //Only deals damage to one enemy
         Attack attack = new Attack(CurrentDamage);
-        TargetedCombatants[Random.Range(0, TargetedCombatants.Length - 1)].GetComponent<Combatant>().Defend(attack);
+        TargetedCombatants[Random.Range(0, TargetedCombatants.Length)].GetComponent<Combatant>().Defend(attack);
         CombatSystem.EndTurn(this.GetComponentInParent<Combatant>().gameObject);
     }
 

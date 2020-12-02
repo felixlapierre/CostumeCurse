@@ -22,6 +22,6 @@ public class Costume : MonoBehaviour
     public void DisplayAbilities(bool displayAbilities)
     {
         this.displayAbilities = displayAbilities;
-        playerUIPanel.SetActive(displayAbilities);
+        playerUIPanel.SetActive(displayAbilities); // CHECK
     }
 }
