@@ -4,36 +4,55 @@ using UnityEngine;
 
 public class MouseSelect : MonoBehaviour
 {
-    public GameObject selectedObject;
+    public GameObject SelectedObject;
+    private TargetSelector TargetSelector;
+    public LayerMask LayerMask;
+    public bool IsTargetSelected;
+
+    void Start()
+    {
+        IsTargetSelected = false;
+        TargetSelector = GetComponent<TargetSelector>();
+    }
 
     void Update()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-        RaycastHit hitInfo;
+        RaycastHit hit;
 
-        if (Physics.Raycast(ray, out hitInfo)) {
-            GameObject hitObject = hitInfo.transform.root.gameObject;
+        if (Physics.Raycast(ray, out hit, 100f, LayerMask)) {
+            GameObject hitObject = hit.transform.gameObject;
+            SelectTarget(hitObject);
         }
         else 
         {
             ClearSelection();
         }
+
+        if (SelectedObject != null && Input.GetButtonDown("Action Command"))
+        {
+            Debug.Log("Selected target");
+            TargetSelector.ChooseTarget(SelectedObject);
+            IsTargetSelected = true;
+        }
     }
 
     void SelectTarget(GameObject obj)
     {
-        if (selectedObject != null)
+        if (SelectedObject != null)
         {
-            if (obj == selectedObject)
+            if (obj == SelectedObject)
                 return;
 
             ClearSelection();
         }
+
+        SelectedObject = obj;
     }
 
     void ClearSelection()
     {
-        selectedObject = null;
+        SelectedObject = null;
     }
 }
