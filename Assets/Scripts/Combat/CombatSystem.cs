@@ -111,7 +111,11 @@ public class CombatSystem : MonoBehaviour
         MainCamera.GetComponent<CameraRig>().SetTargetGO(currentCombatant.gameObject);
 
         currentCombatant.StartTurn();
+    }
 
+    public void GoBackToAbilitySelect()
+    {
+        Combatants[CurrentCombatantTurn - 1].GetComponent<Combatant>().StartTurn();
     }
 
     private void StartNewRound()
