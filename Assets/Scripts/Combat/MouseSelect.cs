@@ -39,7 +39,10 @@ public class MouseSelect : MonoBehaviour
         if (SelectedObject != null && Input.GetButtonDown("Action Command"))
         {
             Debug.Log("Selected target");
-            TargetSelector.ChooseTarget(SelectedObject);
+            
+            if (IsSingleTargetting)
+                TargetSelector.ChooseTarget(SelectedObject);
+
             IsTargetSelected = true;
         }
     }
