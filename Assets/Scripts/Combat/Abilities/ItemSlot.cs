@@ -14,8 +14,10 @@ public class ItemSlot : MonoBehaviour, IDropHandler
     {
         if(eventData.pointerDrag != null)
         {
-            if(eventData.pointerDrag.GetComponent<BoxCollider2D>().IsTouching(GetComponent<BoxCollider2D>()))
+            Debug.Log("Dropped!");
+            if (eventData.pointerDrag.GetComponent<BoxCollider2D>().IsTouching(GetComponent<BoxCollider2D>())) // Never goes in this If
             {
+                Debug.Log("Is Touching!");
                 eventData.pointerDrag.GetComponent<RectTransform>().anchoredPosition = GetComponent<RectTransform>().anchoredPosition;
                 HandleCookingPot(eventData);
             }
@@ -24,11 +26,14 @@ public class ItemSlot : MonoBehaviour, IDropHandler
 
     private void HandleCookingPot(PointerEventData eventData)
     {
-        if(!eventData.pointerDrag.GetComponent<DragAndDrop>().GetIsInside())
+        Debug.Log("Calling Handle Cooking!");
+        if (!eventData.pointerDrag.GetComponent<DragAndDrop>().GetIsInside())
         {
             if(eventData.pointerDrag.name == "Sweet")
             {
+                Debug.Log("Sweets are incrementing");
                 SweetsDropped++;
+                Debug.Log("Sweets Dropped:" + SweetsDropped);
                 eventData.pointerDrag.GetComponent<DragAndDrop>().SetIsInside(true);
             }
             else if(eventData.pointerDrag.name == "Rotten")
